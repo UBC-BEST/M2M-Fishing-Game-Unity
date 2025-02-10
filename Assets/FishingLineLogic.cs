@@ -8,25 +8,31 @@ public class FishingLineLogic : MonoBehaviour
     private Vector3 topPoint;
     private Vector3 bottomPoint;
 
-    public float dropSpeed = 0.5f;
+    public float moveSpeed = 2f;
+    public float maxDepth = 5f;
 
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
-        // !!! find better way to get top and bottom instead of hardcoding
-        topPoint = new Vector3(0, 2, 0); // top of fishing rod
-        bottomPoint = new Vector3(0, 1, 0); // botttom of rod
 
-        lineRenderer.SetPosition(0, topPoint);
-        lineRenderer.SetPosition(1, bottomPoint);
+        topPoint = transform.position;
+        bottomPoint = topPoint;
+
+        UpdateLine();
     }
 
     void Update()
     {
-        // include controls here to bring it up and down
-        bottomPoint.y -= dropSpeed * Time.deltaTime;
+        float verticalInput = Input.GetAxis("Vertical");
+        bottomPoint += new Vector3(0, verticalInput * moveSpeed * Time.deltaTime, 0);
+        bottomPoint.y = Mathf.Clamp(bottomPoint.y, topPoint.y - maxDepth, topPoint.y);
 
+        UpdateLine();
+    }
+
+    private void UpdateLine()
+    {
         lineRenderer.SetPosition(0, topPoint);
         lineRenderer.SetPosition(1, bottomPoint);
     }
