@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class FishingLineLogic : MonoBehaviour
@@ -35,7 +36,26 @@ public class FishingLineLogic : MonoBehaviour
         UpdateLine();
 
         fishingHook.position = bottomPoint;
-    }
+
+        // check if hook reached top
+        if (fishingHook.position.y >= topPoint.y)
+        {
+            // go through sub-components of FishingHook
+            for (int i = fishingHook.childCount - 1; i >= 0; i--)
+            {
+                Transform child = fishingHook.GetChild(i);
+
+                // check if fish is attached to hook
+                if (child.CompareTag("Fish"))
+                {
+                    Destroy(child.gameObject);
+                    Debug.Log("Fish REACHED TOP");
+                    
+                    // ADD EVENT TO UPDATE SCORE
+                }
+            }
+        }
+     }
 
     private void UpdateLine()
     {
