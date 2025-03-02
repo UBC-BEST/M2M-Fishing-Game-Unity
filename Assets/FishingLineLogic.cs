@@ -11,6 +11,8 @@ public class FishingLineLogic : MonoBehaviour
     public float moveSpeed = 2f;
     public float maxDepth = 5f;
 
+    public Transform fishingHook;
+
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -20,6 +22,8 @@ public class FishingLineLogic : MonoBehaviour
         bottomPoint = topPoint;
 
         UpdateLine();
+
+        fishingHook.position = bottomPoint;
     }
 
     void Update()
@@ -29,6 +33,8 @@ public class FishingLineLogic : MonoBehaviour
         bottomPoint.y = Mathf.Clamp(bottomPoint.y, topPoint.y - maxDepth, topPoint.y);
 
         UpdateLine();
+
+        fishingHook.position = bottomPoint;
     }
 
     private void UpdateLine()
