@@ -10,7 +10,7 @@ public class Fish1_0 : MonoBehaviour
     private Vector3 originalScale;
     public float moveDuration = 2f; // Changes speed
 
-    public float fixedHeight = 0f; // Changes height
+    public float depth = 0f; // Changes height
 
     public float leftRange = 2f; // Changes how far left travel is
 
@@ -22,7 +22,7 @@ public class Fish1_0 : MonoBehaviour
     {
         transform.localScale = scale;
         originalScale = transform.localScale; 
-        transform.position = new Vector3(0f, fixedHeight, 0f);
+        transform.position = new Vector3(0f, depth, 0f);
         
         MoveAndFlip();
     }
@@ -30,8 +30,8 @@ public class Fish1_0 : MonoBehaviour
  void MoveAndFlip()
     {
         float moveDistance = Random.Range(leftRange, rightRange); 
-        Vector3 rightPoint = new Vector3(moveDistance, fixedHeight, 0f);
-        Vector3 leftPoint = new Vector3(-moveDistance, fixedHeight, 0f); 
+        Vector3 rightPoint = new Vector3(moveDistance, depth, 0f);
+        Vector3 leftPoint = new Vector3(-moveDistance, depth, 0f); 
 
         moveTween = transform.DOMove(rightPoint, moveDuration) 
             .SetEase(Ease.InOutSine)
@@ -41,8 +41,8 @@ public class Fish1_0 : MonoBehaviour
                 Flip();
 
                 moveDistance = Random.Range(leftRange, rightRange); 
-                rightPoint = new Vector3(moveDistance, fixedHeight, 0f);
-                leftPoint = new Vector3(-moveDistance, fixedHeight, 0f);
+                rightPoint = new Vector3(moveDistance, depth, 0f);
+                leftPoint = new Vector3(-moveDistance, depth, 0f);
 
                 moveTween.ChangeEndValue(movingRight ? rightPoint : leftPoint, true); 
             });
