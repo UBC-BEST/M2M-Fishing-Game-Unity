@@ -50,8 +50,12 @@ public class FishingLineLogic : MonoBehaviour
                 {
                     Destroy(child.gameObject);
                     Debug.Log("Fish REACHED TOP");
-                    
+
                     // ADD EVENT TO UPDATE SCORE
+                    if (ScoreManager.Instance != null)
+                    {
+                        ScoreManager.Instance.AddPoints(10);  // Add 10 points per fish
+                    }
                 }
             }
         }
