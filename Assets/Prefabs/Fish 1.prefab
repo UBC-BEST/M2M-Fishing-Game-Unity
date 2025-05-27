@@ -71,12 +71,12 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1650154525
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8b06c7b1c669f41ae990048767c03d82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 20, y: 20}
@@ -97,8 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd69ab8c2cea0934b8cc983635a4e132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDuration: 1.7
-  depth: -1
-  leftRange: 2
-  rightRange: 5
-  scale: {x: 0.15, y: 0.15, z: 0.15}
+  leftLimitX: 15
+  rightLimitX: -15
+  moveDuration: 2.4
+  easeType: 4
+  minTimeScale: 0.597
+  speedChangeInterval: 2
+  depth: 0
+  scale: {x: 0.5, y: 0.5, z: 0.5}

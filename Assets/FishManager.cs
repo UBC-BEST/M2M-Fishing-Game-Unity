@@ -19,18 +19,19 @@ public class FishManager : MonoBehaviour
 
     void Start()
     {
-        SpawnFishIfNull(ref shallowInstance, fishShallow, -1f);
+        SpawnFishIfNull(ref shallowInstance, fishShallow,    0f);
         SpawnFishIfNull(ref midShallowInstance, fishMidShallow, -2f);
-        SpawnFishIfNull(ref midDeepInstance, fishMidDeep, -3f);
-        SpawnFishIfNull(ref deepInstance, fishDeep, -4f);
+        SpawnFishIfNull(ref midDeepInstance,    fishMidDeep,   -4f);
+        SpawnFishIfNull(ref deepInstance,       fishDeep,      -10f);
     }
 
     void Update()
     {
-        SpawnFishIfNull(ref shallowInstance, fishShallow, 1f);
-        SpawnFishIfNull(ref midShallowInstance, fishMidShallow, 2f);
-        SpawnFishIfNull(ref midDeepInstance, fishMidDeep, -3f);
-        SpawnFishIfNull(ref deepInstance, fishDeep, -4f);
+        // If any instance was destroyed, this will respawn it
+        SpawnFishIfNull(ref shallowInstance, fishShallow,    0f);
+        SpawnFishIfNull(ref midShallowInstance, fishMidShallow, -2f);
+        SpawnFishIfNull(ref midDeepInstance,    fishMidDeep,   -4f);
+        SpawnFishIfNull(ref deepInstance,       fishDeep,      -10f);
     }
 
     void SpawnFishIfNull(ref GameObject instance, GameObject prefab, float depth)
@@ -39,11 +40,8 @@ public class FishManager : MonoBehaviour
 
         float x = Random.Range(minX, maxX);
         Vector3 spawnPos = new Vector3(x, depth, 0f);
-
         instance = Instantiate(prefab, spawnPos, Quaternion.identity);
 
-        Fish1_0 fishScript = instance.GetComponent<Fish1_0>();
-        if (fishScript != null)
-            fishScript.depth = depth;
+
     }
 }

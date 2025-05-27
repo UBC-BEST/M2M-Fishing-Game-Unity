@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2927948823267449855}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.71710247, w: 0.6969677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.1153564, y: -1.1209717, z: 10.017981}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1650154525
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 88a16520e7f4040c6919e5783f06e617, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,11 +99,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd69ab8c2cea0934b8cc983635a4e132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDuration: 3
-  depth: -3
-  leftRange: 2
-  rightRange: 5
-  scale: {x: 0.1, y: 0.1, z: 0.1}
+  leftLimitX: -5
+  rightLimitX: 5
+  moveDuration: 2
+  easeType: 1
+  minTimeScale: 0.5
+  speedChangeInterval: 2
+  depth: 0
+  scale: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!50 &3248503181180035435
 Rigidbody2D:
   serializedVersion: 4
