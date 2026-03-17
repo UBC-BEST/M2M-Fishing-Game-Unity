@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FishingHookCollision : MonoBehaviour
 {
+    private bool hasCaughtFish = false;
+
     void Start()
     {
         CheckColliderSetup();
@@ -12,7 +14,6 @@ public class FishingHookCollision : MonoBehaviour
 
     void Update()
     {
-        // Check every frame to make sure collider still exists
         CheckColliderSetup();
     }
 
@@ -32,11 +33,25 @@ public class FishingHookCollision : MonoBehaviour
             Debug.LogWarning("FishingHook collider is not set to Trigger! Fixing...");
             col.isTrigger = true;
         }
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            Debug.LogError("FishingHook is missing a Rigidbody2D! Adding one now...");
+            Rigidbody2D newRb = gameObject.AddComponent<Rigidbody2D>();
+            newRb.bodyType = RigidbodyType2D.Kinematic;
+            newRb.gravityScale = 0f;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"Trigger detected with: {other.gameObject.name}, Tag: {other.tag}");
+
+        if (hasCaughtFish)
+        {
+            Debug.Log("❌ Already have a fish! Cannot catch another.");
+            return; // Exit early, don't catch another fish
+        }
 
         if (other.CompareTag("Fish"))
         {
@@ -67,7 +82,7 @@ public class FishingHookCollision : MonoBehaviour
             if (fishRb != null)
             {
                 fishRb.velocity = Vector2.zero;
-                fishRb.isKinematic = true;
+                fishRb.bodyType = RigidbodyType2D.Kinematic;
                 Debug.Log("✓ Rigidbody2D made kinematic");
             }
             else
@@ -83,6 +98,9 @@ public class FishingHookCollision : MonoBehaviour
             other.enabled = false;
             Debug.Log("✓ Fish collider disabled");
 
+            hasCaughtFish = true;
+            Debug.Log("✓ hasCaughtFish set to TRUE");
+
             Debug.Log("=== FISH CAUGHT SUCCESSFULLY ===");
         }
         else
@@ -91,4 +109,13 @@ public class FishingHookCollision : MonoBehaviour
         }
     }
 
+    public void ReleaseFish()
+    {
+        hasCaughtFish = false;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log($"💥 COLLISION (non-trigger) detected with: {collision.gameObject.name}");
+    }
 }

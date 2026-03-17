@@ -8,6 +8,7 @@ public class FishingLineLogic : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector3 topPoint;
     private Vector3 bottomPoint;
+
     public float moveSpeed = 2f;
     public float maxDepth = 5f;
     public Transform fishingHook;
@@ -16,8 +17,10 @@ public class FishingLineLogic : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
+
         topPoint = transform.position;
         bottomPoint = topPoint;
+
         UpdateLine();
         fishingHook.position = bottomPoint;
     }
@@ -25,8 +28,10 @@ public class FishingLineLogic : MonoBehaviour
     void Update()
     {
         float verticalInput = Input.GetAxis("Vertical");
+
         bottomPoint += new Vector3(0, verticalInput * moveSpeed * Time.deltaTime, 0);
         bottomPoint.y = Mathf.Clamp(bottomPoint.y, topPoint.y - maxDepth, topPoint.y);
+
         UpdateLine();
         fishingHook.position = bottomPoint;
 
@@ -37,12 +42,12 @@ public class FishingLineLogic : MonoBehaviour
             for (int i = fishingHook.childCount - 1; i >= 0; i--)
             {
                 Transform child = fishingHook.GetChild(i);
+
                 // check if fish is attached to hook
                 if (child.CompareTag("Fish"))
                 {
                     // Determine points based on fish name
                     int points = GetFishValue(child.name);
-
                     Destroy(child.gameObject);
                     Debug.Log($"Fish REACHED TOP! Worth {points} points!");
 
@@ -50,6 +55,12 @@ public class FishingLineLogic : MonoBehaviour
                     if (ScoreManager.Instance != null)
                     {
                         ScoreManager.Instance.AddPoints(points);
+                    }
+
+                    FishingHookCollision hookScript = fishingHook.GetComponent<FishingHookCollision>();
+                    if (hookScript != null)
+                    {
+                        hookScript.ReleaseFish();
                     }
                 }
             }

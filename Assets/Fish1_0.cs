@@ -35,8 +35,11 @@ public class Fish1_0 : MonoBehaviour
         transform.localScale = scale;
         originalScale = scale;
 
-        // Use the current Y position as depth (set by FishManager)
-        depth = transform.position.y;
+        // If depth wasn't set by FishManager, use current Y position
+        if (depth == 0f)
+        {
+            depth = transform.position.y;
+        }
 
         // lock in depth
         Vector3 p = transform.position;
